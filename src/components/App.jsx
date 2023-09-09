@@ -31,8 +31,6 @@ export const App = () => {
     return 0;
   };
 
-  const positivePercentage = countPositiveFeedbackPercentage();
-
   return (
     <Layout>
       <Section title="Please leave feedback">
@@ -45,7 +43,7 @@ export const App = () => {
         {total === 0 ? <Notification message="There is no feedback" /> : <Statistics
           {...state}
           total={total}
-          positivePercentage={positivePercentage}
+          positivePercentage={countPositiveFeedbackPercentage()}
         />}
       </Section>
       <GlobalStyle />
