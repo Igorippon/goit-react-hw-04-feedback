@@ -13,21 +13,18 @@ export const App = () => {
     bad: 0,
   })
 
-  const options = Object.keys(state);
-  const values = Object.values(state);
-  const { good, neutral, bad } = state;
-
   const handleClick = (evt) => {
     setState(prevState => ({
       ...prevState, [evt]: prevState[evt] + 1,
     }));
   };
 
-  const total = values.reduce((prevValue, value) => {
-    return prevValue + value
+  const total = Object.values(state).reduce((prevValue, value) => {
+    return prevValue + value;
   }, 0);
 
   const countPositiveFeedbackPercentage = () => {
+    const { good } = state;
     if (good !== 0) {
       return Math.round(100 / total * good);
     };
@@ -40,15 +37,13 @@ export const App = () => {
     <Layout>
       <Section title="Please leave feedback">
         <FeedbackOptions
-          options={options}
+          options={Object.keys(state)}
           onLeaveFeedback={handleClick}
         />
       </Section>
       <Section title="Statistics">
         {total === 0 ? <Notification message="There is no feedback" /> : <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
+          {...state}
           total={total}
           positivePercentage={positivePercentage}
         />}
@@ -57,9 +52,3 @@ export const App = () => {
     </Layout>
   );
 };
-
-
-
-
-
-
